@@ -1,5 +1,6 @@
 // BaseNode.js
 
+import { useRef } from 'react';
 import { Handle, Position } from 'reactflow';
 
 export const BaseNode = ({
@@ -12,8 +13,16 @@ export const BaseNode = ({
   data,
   onChange,
 }) => {
+  const textareaRef = useRef(null);
   const handleFieldChange = (fieldKey, value) => {
     onChange?.(fieldKey, value);
+    if (fieldKey === 'text') {
+      const el = textareaRef.current;
+      if (el) {
+        el.style.height = 'auto'; // Reset height
+        el.style.height = el.scrollHeight + 'px'; // Set to scroll height
+      }
+    }
   };
 
   return (
@@ -50,9 +59,18 @@ export const BaseNode = ({
                 ))}
               </select>
             ) : (
-              <input
+              <textarea
+                ref={textareaRef}
                 type={type}
                 value={data[key]}
+                style={{
+                  maxWidth: '200px',
+                  width: '100%',
+                  minHeight: '40px',
+                  overflow: 'hidden',
+                  resize: 'none',
+                  overflowWrap: 'break-word'
+                }}
                 onChange={(e) => handleFieldChange(key, e.target.value)}
               />
             )}
