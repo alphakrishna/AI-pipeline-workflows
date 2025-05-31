@@ -1,12 +1,12 @@
-// PipelineNode.js
+// TriggerNode.js
 
 import { BaseNode } from './BaseNode';
 
-export const PipelineNode = ({ id, data }) => {
+export const TriggerNode = ({ id, data }) => {
   return (
     <BaseNode
       id={id}
-      title="Pipeline"
+      title="Trigger"
       data={data}
       inputs={[
         { id: 'llm' },
@@ -14,7 +14,7 @@ export const PipelineNode = ({ id, data }) => {
       outputs={[
         { id: 'system' }
        ]}
-      description="This is a Pipeline Node"
+      description="This is a Trigger Node"
       onChange={() => {}}
     />
   );

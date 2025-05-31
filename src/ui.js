@@ -12,7 +12,7 @@ import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
 import { TransformNode } from './nodes/TransformNode';
 import { NoteNode } from './nodes/NoteNode';
-import { PipelineNode } from './nodes/PipelineNode';
+import { TriggerNode } from './nodes/TriggerNode';
 import { CodeExecNode } from './nodes/CodeExecNode';
 import { URLNode } from './nodes/URLNode';
 
@@ -27,7 +27,7 @@ const nodeTypes = {
   text: TextNode,
   transform: TransformNode,
   note: NoteNode,
-  pipeline: PipelineNode,
+  trigger: TriggerNode,
   codeexec: CodeExecNode,
   urlloader: URLNode
 };

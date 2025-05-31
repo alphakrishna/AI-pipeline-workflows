@@ -66,7 +66,6 @@ export const BaseNode = ({
                 style={{
                   maxWidth: '200px',
                   width: '100%',
-                  minHeight: '40px',
                   overflow: 'hidden',
                   resize: 'none',
                   overflowWrap: 'break-word'

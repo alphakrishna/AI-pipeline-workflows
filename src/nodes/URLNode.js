@@ -8,7 +8,7 @@ export const URLNode = ({ id, data }) => {
       id={id}
       title="URL Loader"
       data={data}
-      outputs={[{ id: 'pipeline' }]}
+      outputs={[{ id: 'trigger' }]}
       fields={[
         { label: 'URL', key: 'text' }
       ]}
