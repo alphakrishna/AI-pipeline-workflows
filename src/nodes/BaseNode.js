@@ -1,7 +1,6 @@
-// BaseNode.js
-
 import { useRef } from 'react';
 import { Handle, Position } from 'reactflow';
+import { Card, Typography, TextField } from '@mui/material';
 
 export const BaseNode = ({
   id,
@@ -13,42 +12,49 @@ export const BaseNode = ({
   data,
   onChange,
 }) => {
-  const textareaRef = useRef(null);
+
   const handleFieldChange = (fieldKey, value) => {
     onChange?.(fieldKey, value);
-    if (fieldKey === 'text') {
-      const el = textareaRef.current;
-      if (el) {
-        el.style.height = 'auto'; // Reset height
-        el.style.height = el.scrollHeight + 'px'; // Set to scroll height
-      }
-    }
   };
 
   return (
-    <div style={{ width: 220, minHeight: 100, border: '1px solid black', padding: 8 }}>
+    <Card className="w-[220px] min-h-[100px] p-3 relative border border-gray-300 shadow-sm" sx={{ overflow: 'visible' }}>
       {inputs.map((input, index) => (
         <Handle
           key={input.id}
           type="target"
           position={Position.Left}
           id={`${id}-${input.id}`}
-          style={{ top: `${(index + 1) * 30}px` }}
+          style={{
+            top: `${(index + 1) * 30}px`,
+            left: '-7px', // push half of width outward (e.g., -7px if width is 14px)
+            width: 12,
+            height: 12,
+            borderRadius: '50%',
+            background: 'white',
+            border: '2px solid #6366f1',
+            zIndex: 50,
+          }}
         />
       ))}
-
-      <div style={{ marginBottom: 8 }}>
-        <strong>{title}</strong>
+      <div  className='flex flex-col m-1 rounded-md border border-indigo-6'>
+      <Typography variant="subtitle1" sx={{backgroundColor: '#eef2ff', padding: '4px 8px'}}>
+        {title}
+      </Typography>
       </div>
-      <div style={{ marginBottom: 2 }}>
+      <div  className='flex flex-col m-1'>
+      <Typography variant="body2" className="m-10 text-gray-700">
         {description}
+      </Typography>
       </div>
+
       {fields.map(({ label, key, type = 'text', options }) => (
-        <div key={key} style={{ marginBottom: 4 }}>
-          <label>
-            {label}:{' '}
-            {type === 'select' ? (
+        <div key={key} className="mb-2">
+          {type === 'select' ? (
+            <label className="text-sm">
+              {label}:{' '}
               <select
+                className="w-full border rounded p-1"
                 value={data[key]}
                 onChange={(e) => handleFieldChange(key, e.target.value)}
               >
@@ -58,22 +64,18 @@ export const BaseNode = ({
                   </option>
                 ))}
               </select>
-            ) : (
-              <textarea
-                ref={textareaRef}
-                type={type}
-                value={data[key]}
-                style={{
-                  maxWidth: '200px',
-                  width: '100%',
-                  overflow: 'hidden',
-                  resize: 'none',
-                  overflowWrap: 'break-word'
-                }}
-                onChange={(e) => handleFieldChange(key, e.target.value)}
-              />
-            )}
-          </label>
+            </label>
+          ) : (
+            <TextField
+              label={label}
+              multiline
+              minRows={1}
+              fullWidth
+              value={data[key]}
+              onChange={(e) => handleFieldChange(key, e.target.value)}
+              size="small"
+            />
+          )}
         </div>
       ))}
 
@@ -83,9 +85,18 @@ export const BaseNode = ({
           type="source"
           position={Position.Right}
           id={`${id}-${output.id}`}
-          style={{ top: `${(index + 1) * 30}px` }}
+          style={{
+            top: `${(index + 1) * 30}px`,
+            right: '-7px',
+            width: 12,
+            height: 12,
+            borderRadius: '50%',
+            background: 'white',
+            border: '2px solid #6366f1',
+            zIndex: 50,
+          }}
         />
       ))}
-    </div>
+    </Card>
   );
 };
